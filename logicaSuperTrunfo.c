@@ -10,24 +10,51 @@ typedef struct {
     int numPontosTuristicos;
 } Carta;
 
-int comparaCartas(Carta c1, Carta c2, int atributo) {
-    switch (atributo) {
+int comparaCartas(Carta c1, Carta c2, int atributo1, int atributo2) {
+    int resultado1, resultado2;
+
+    switch (atributo1) {
         case 1:
-            return (c1.populacao > c2.populacao) ? 1 : (c1.populacao < c2.populacao) ? -1 : 0;
+            resultado1 = (c1.populacao > c2.populacao) ? 1 : (c1.populacao < c2.populacao) ? -1 : 0;
+            break;
         case 2:
-            return (c1.area > c2.area) ? 1 : (c1.area < c2.area) ? -1 : 0;
+            resultado1 = (c1.area > c2.area) ? 1 : (c1.area < c2.area) ? -1 : 0;
+            break;
         case 3:
-            return (c1.pib > c2.pib) ? 1 : (c1.pib < c2.pib) ? -1 : 0;
+            resultado1 = (c1.pib > c2.pib) ? 1 : (c1.pib < c2.pib) ? -1 : 0;
+            break;
         case 4:
-            return (c1.numPontosTuristicos > c2.numPontosTuristicos) ? 1 : (c1.numPontosTuristicos < c2.numPontosTuristicos) ? -1 : 0;
+            resultado1 = (c1.numPontosTuristicos > c2.numPontosTuristicos) ? 1 : (c1.numPontosTuristicos < c2.numPontosTuristicos) ? -1 : 0;
+            break;
         default:
-            return 0;
+            resultado1 = 0;
+            break;
     }
+
+    switch (atributo2) {
+        case 1:
+            resultado2 = (c1.populacao > c2.populacao) ? 1 : (c1.populacao < c2.populacao) ? -1 : 0;
+            break;
+        case 2:
+            resultado2 = (c1.area > c2.area) ? 1 : (c1.area < c2.area) ? -1 : 0;
+            break;
+        case 3:
+            resultado2 = (c1.pib > c2.pib) ? 1 : (c1.pib < c2.pib) ? -1 : 0;
+            break;
+        case 4:
+            resultado2 = (c1.numPontosTuristicos > c2.numPontosTuristicos) ? 1 : (c1.numPontosTuristicos < c2.numPontosTuristicos) ? -1 : 0;
+            break;
+        default:
+            resultado2 = 0;
+            break;
+    }
+
+    return (resultado1 + resultado2 > 0) ? 1 : (resultado1 + resultado2 < 0) ? -1 : 0;
 }
 
 int main() {
     Carta carta1, carta2;
-    
+
     printf("Cadastro da Carta 1:\n");
     printf("Estado: ");
     scanf(" %c", &carta1.estado);
@@ -60,7 +87,13 @@ int main() {
     printf("Número de Pontos Turísticos: ");
     scanf("%d", &carta2.numPontosTuristicos);
 
-    int resultado = comparaCartas(carta1, carta2, 1);
+    int escolha1, escolha2;
+    printf("\nEscolha o primeiro atributo para comparar:\n1 - População\n2 - Área\n3 - PIB\n4 - Pontos Turísticos\n");
+    scanf("%d", &escolha1);
+    printf("Escolha o segundo atributo para comparar:\n1 - População\n2 - Área\n3 - PIB\n4 - Pontos Turísticos\n");
+    scanf("%d", &escolha2);
+
+    int resultado = comparaCartas(carta1, carta2, escolha1, escolha2);
     if (resultado > 0)
         printf("Carta 1 venceu!\n");
     else if (resultado < 0)
